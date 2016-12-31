@@ -2,6 +2,20 @@
 
 ### requires python 2
 
+###
+### TODO
+###
+### - add jupyter notebook configuration file
+### - add htop configuration file
+### - think of a good way to get SSH keys and SSH config file in there
+### - put tmux configuration in there
+### - put .bashrc files in there
+###     - aliases
+###     - add anaconda to path
+###     - automatically connect to tmux if possible
+### - shell scripts
+###     - launch database applications
+
 from fabric.api import *
 import time
 
