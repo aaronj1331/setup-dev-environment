@@ -223,6 +223,15 @@ def install_vim():
     run('git clone https://gist.github.com/aaronj1331/ac8ccc8efabe34a94c9b660b3bd6842c vim-config')
     run('ln -s vim-config/.vimrc')
 
+def install_sqlite():
+    sudo('apt-get install sqlite3')
+
+def install_neo4j():
+    run('wget -O - https://debian.neo4j.org/neotechnology.gpg.key | sudo apt-key add -')
+    run('''echo 'deb https://debian.neo4j.org/repo stable/' | sudo tee /etc/apt/sources.list.d/neo4j.list''')
+    sudo('apt-get -y update')
+    sudo('apt-get -y install neo4j')
+
 def setup_env():
     mount_storage()
     install_utils()
@@ -233,4 +242,6 @@ def setup_env():
     install_emacs()
     install_spacemacs()
     install_vim()
+    install_sqlite()
+    install_neo4j()
 
