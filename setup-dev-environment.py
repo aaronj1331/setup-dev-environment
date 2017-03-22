@@ -224,7 +224,7 @@ def install_vim():
     # get my .vimrc file from github
     run('rm -f .vimrc')
     run('rm -rf vim-config')
-    run('git clone https://gist.github.com/aaronj1331/ac8ccc8efabe34a94c9b660b3bd6842c vim-config')
+    run('git clone https://github.com/commondatageek/vimrc.git vim-config')
     run('ln -s vim-config/.vimrc')
 
 def install_sqlite():
