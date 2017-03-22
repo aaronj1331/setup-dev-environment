@@ -171,7 +171,7 @@ def install_rstudio():
 
 def install_emacs():
     # install prereqs
-    sudo('apt-get install libncurses5 libncurses5-dev')
+    sudo('apt-get -y install libncurses5 libncurses5-dev')
 
     # build emacs from source code
     run('rm -rf emacs-25.1*')
@@ -196,7 +196,7 @@ def install_spacemacs():
 
 def install_vim():
     # install prereqs
-    sudo('apt-get install python-dev python3-dev')
+    sudo('apt-get -y install python-dev python3-dev')
 
     # get rid of any previous vim configuration
     sudo('rm -rf .vim')
@@ -228,7 +228,7 @@ def install_vim():
     run('ln -s vim-config/.vimrc')
 
 def install_sqlite():
-    sudo('apt-get install sqlite3')
+    sudo('apt-get -y install sqlite3')
 
 def install_neo4j():
     run('wget -O - https://debian.neo4j.org/neotechnology.gpg.key | sudo apt-key add -')
