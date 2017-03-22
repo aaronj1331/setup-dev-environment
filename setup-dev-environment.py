@@ -74,7 +74,7 @@ def mount_storage():
     run('ln -s /storage')
 
 def install_utils():
-    sudo('apt-get -y install tmux zip unzip htop nload tcptrack build-essential')
+    sudo('apt-get -y install tmux zip unzip htop nload tcptrack build-essential rlwrap')
 
 def install_git():
     # install prereqs
@@ -229,6 +229,7 @@ def install_vim():
 
 def install_sqlite():
     sudo('apt-get -y install sqlite3')
+    put('.bash_aliases', '/home/analyst')
 
 def install_neo4j():
     run('wget -O - https://debian.neo4j.org/neotechnology.gpg.key | sudo apt-key add -')
