@@ -195,16 +195,20 @@ def install_spacemacs():
     run('ln -s spacemacs-config/.spacemacs')
 
 def install_vim():
-    run('rm -rf .vim')
+    # install prereqs
+    sudo('apt-get install python-dev python3-dev')
+
+    # get rid of any previous vim configuration
+    sudo('rm -rf .vim')
 
     # build vim 8 from scratch
-    run('rm -rf vim')
+    sudo('rm -rf vim')
     run('git clone https://github.com/vim/vim.git')
     with cd('vim'):
-        run('make distclean')
-        run('source /home/analyst/anaconda3/bin/activate py3 && ./configure --with-features=huge && make -j 8')
+        sudo('make distclean')
+        run('./configure --with-features=huge --enable-pythoninterp=yes --enable-python3interp=yes && make -j 8')
         sudo('make install')
-    run('rm -rf vim')
+    sudo('rm -rf vim')
 
     # install Vundle
     run('rm -rf ~/.vim/bundle/Vundle.vim')
