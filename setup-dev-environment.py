@@ -242,6 +242,13 @@ def install_neo4j():
     sudo('apt-get -y update')
     sudo('apt-get -y install neo4j')
 
+def install_vaulted():
+    run('rm -rf gopath')
+    run('mkdir gopath')
+    sudo('apt-get -y install golang')
+    run('GOPATH=/home/analyst/gopath go get -u github.com/miquella/vaulted')
+    run('ln ~/gopath/bin/vaulted ~/bin/vaulted')
+
 def setup_env():
     mount_storage()
     install_utils()
