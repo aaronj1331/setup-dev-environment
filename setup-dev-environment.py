@@ -76,6 +76,11 @@ def mount_storage():
 def install_utils():
     sudo('apt-get -y install tmux zip unzip htop nload tcptrack build-essential rlwrap')
 
+def tmux_conf():
+    run('rm -rf tmux-conf')
+    run('git clone https://github.com/commondatageek/tmux-conf.git')
+    run('ln -s tmux-conf/.tmux.conf')
+
 def install_git():
     # install prereqs
     sudo('apt-get -y install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev')
