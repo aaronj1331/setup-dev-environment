@@ -77,9 +77,9 @@ def install_utils():
     sudo('apt-get -y install tmux zip unzip htop nload tcptrack build-essential rlwrap')
 
 def tmux_conf():
-    run('rm -rf tmux-conf')
-    run('git clone https://github.com/commondatageek/tmux-conf.git')
-    run('ln -s tmux-conf/.tmux.conf')
+    run('rm -rf conf-tmux')
+    run('git clone https://github.com/commondatageek/tmux-conf.git conf-tmux')
+    run('ln -s conf-tmux/.tmux.conf')
 
 def install_git():
     # install prereqs
@@ -195,9 +195,9 @@ def install_spacemacs():
 
     # get my .spacemacs from github
     run('rm -f .spacemacs')
-    run('rm -rf spacemacs-config')
-    run('git clone https://github.com/commondatageek/spacemacs-customizations.git spacemacs-config')
-    run('ln -s spacemacs-config/.spacemacs')
+    run('rm -rf conf-spacemacs')
+    run('git clone https://github.com/commondatageek/spacemacs-customizations.git conf-spacemacs')
+    run('ln -s conf-spacemacs/.spacemacs')
 
 def install_vim():
     # install prereqs
@@ -228,9 +228,9 @@ def install_vim():
 
     # get my .vimrc file from github
     run('rm -f .vimrc')
-    run('rm -rf vim-config')
-    run('git clone https://github.com/commondatageek/vimrc.git vim-config')
-    run('ln -s vim-config/.vimrc')
+    run('rm -rf conf-vim')
+    run('git clone https://github.com/commondatageek/vimrc.git conf-vim')
+    run('ln -s conf-vim/.vimrc')
 
 def install_sqlite():
     sudo('apt-get -y install sqlite3')
