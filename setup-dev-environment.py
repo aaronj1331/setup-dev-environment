@@ -196,7 +196,7 @@ def install_spacemacs():
     # get my .spacemacs from github
     run('rm -f .spacemacs')
     run('rm -rf spacemacs-config')
-    run('git clone https://gist.github.com/aaronj1331/c29a49805024cb6c2d47a7d11801f10e spacemacs-config')
+    run('git clone https://github.com/commondatageek/spacemacs-customizations.git spacemacs-config')
     run('ln -s spacemacs-config/.spacemacs')
 
 def install_vim():
