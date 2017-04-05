@@ -149,7 +149,7 @@ def mk_py2_env():
     # everything we can get from anaconda
     run('anaconda3/bin/conda create -y -n py2 python=2 numpy pandas scipy scikit-learn jupyter pymc beautifulsoup4 bokeh boto3 csvkit curl dask datashader fabric gensim graphviz ipykernel libpq luigi matplotlib nltk psycopg2 pymongo pytz seaborn spyder sqlalchemy sqlite statsmodels sympy tensorflow terminado tornado wget')
     # everything we need to get through pip
-    run('source anaconda3/bin/activate py2 && pip install celery')
+    run('source anaconda3/bin/activate py2 && pip install celery doit==0.29.0')
 
 def mk_py3_env():
     run('rm -rf anaconda3/envs/py3')
@@ -157,7 +157,7 @@ def mk_py3_env():
     # everything we can get from anaconda
     run('anaconda3/bin/conda create -y -n py3 python=3 numpy pandas scipy scikit-learn jupyter pymc beautifulsoup4 bokeh boto3 csvkit curl dask datashader gensim graphviz ipykernel libpq luigi matplotlib nltk psycopg2 pymongo pytz seaborn spyder sqlalchemy sqlite statsmodels sympy tensorflow terminado tornado wget')
     # everything we need to get through pip
-    run('source anaconda3/bin/activate py3 && pip install celery')
+    run('source anaconda3/bin/activate py3 && pip install celery doit')
 
 def install_python():
     install_anaconda()
