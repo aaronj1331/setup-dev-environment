@@ -74,7 +74,7 @@ def mount_storage():
     run('ln -s /storage')
 
 def install_utils():
-    sudo('apt-get -y install tmux zip unzip htop nload tcptrack build-essential rlwrap')
+    sudo('apt-get -y install tree maven tmux zip unzip htop nload tcptrack build-essential rlwrap')
 
 def tmux_conf():
     run('rm -rf conf-tmux')
