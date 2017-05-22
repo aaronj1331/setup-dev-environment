@@ -74,12 +74,8 @@ def mount_storage():
     run('ln -s /storage')
 
 def install_utils():
-    sudo('apt-get -y install tree maven tmux zip unzip htop nload tcptrack build-essential rlwrap')
+    sudo('apt-get -y install tree maven tmux zip unzip htop nload tcptrack build-essential rlwrap graphviz')
 
-def tmux_conf():
-    run('rm -rf conf-tmux')
-    run('git clone https://github.com/commondatageek/tmux-conf.git conf-tmux')
-    run('ln -s conf-tmux/.tmux.conf')
 
 def install_git():
     # install prereqs
@@ -94,25 +90,6 @@ def install_git():
         run('make -j 8 all')
         sudo('make install')
     run('rm -rf git-2.10.2*')
-
-    # get ipynb_output_filter from github
-    run('rm -rf ipynb_output_filter')
-    run('rm -f bin/ipynb_output_filter.py')
-    run('git clone https://gist.github.com/aaronj1331/139910d79fd15be1e5f7d79e75ad9164 ipynb_output_filter')
-    with cd('bin'):
-        run('ln -s ../ipynb_output_filter/ipynb_output_filter.py')
-
-    # get .gitattributes from github
-    run('rm -rf gitattributes')
-    run('rm -f .gitattributes')
-    run('git clone https://gist.github.com/aaronj1331/c69b72d02e07301696c1b5b245be4a70 gitattributes')
-    run('ln -s gitattributes/.gitattributes')
-
-    # get .gitconfig from github
-    run('rm -rf gitconfig')
-    run('rm -f .gitconfig')
-    run('git clone https://gist.github.com/aaronj1331/9c0005afa3efaaa32e4936c359b86cc3 gitconfig')
-    run('ln -s gitconfig/.gitconfig')
 
 
 def install_lein():
@@ -138,7 +115,7 @@ def install_anaconda():
 
     # install
     run('rm -f ./anaconda.sh')
-    run('wget https://repo.continuum.io/archive/Anaconda3-4.2.0-Linux-x86_64.sh -O anaconda.sh')
+    run('wget https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O anaconda.sh')
     run('bash ./anaconda.sh -b -p anaconda3')
     run('anaconda3/bin/conda update -y conda')
     run('rm -f ./anaconda.sh')
@@ -147,7 +124,7 @@ def mk_py2_env():
     run('rm -rf anaconda3/envs/py2')
 
     # everything we can get from anaconda
-    run('anaconda3/bin/conda create -y -n py2 python=2 numpy pandas scipy scikit-learn jupyter pymc beautifulsoup4 bokeh boto3 csvkit curl dask datashader fabric gensim graphviz ipykernel libpq luigi matplotlib nltk psycopg2 pymongo pytz seaborn spyder sqlalchemy sqlite statsmodels sympy tensorflow terminado tornado wget')
+    run('anaconda3/bin/conda create -y -n py2 python=2 s3fs numpy pandas scipy scikit-learn jupyter pymc beautifulsoup4 bokeh boto3 csvkit curl dask datashader fabric paramiko gensim graphviz ipykernel libpq luigi matplotlib nltk psycopg2 pymongo pytz seaborn spyder sqlalchemy sqlite statsmodels sympy tensorflow terminado tornado wget')
     # everything we need to get through pip
     run('source anaconda3/bin/activate py2 && pip install celery doit==0.29.0')
 
@@ -155,7 +132,7 @@ def mk_py3_env():
     run('rm -rf anaconda3/envs/py3')
 
     # everything we can get from anaconda
-    run('anaconda3/bin/conda create -y -n py3 python=3 numpy pandas scipy scikit-learn jupyter pymc beautifulsoup4 bokeh boto3 csvkit curl dask datashader gensim graphviz ipykernel libpq luigi matplotlib nltk psycopg2 pymongo pytz seaborn spyder sqlalchemy sqlite statsmodels sympy tensorflow terminado tornado wget')
+    run('anaconda3/bin/conda create -y -n py3 python=3 s3fs numpy pandas scipy scikit-learn jupyter pymc beautifulsoup4 bokeh boto3 csvkit curl dask datashader        paramiko gensim graphviz ipykernel libpq luigi matplotlib nltk psycopg2 pymongo pytz seaborn spyder sqlalchemy sqlite statsmodels sympy tensorflow terminado tornado wget')
     # everything we need to get through pip
     run('source anaconda3/bin/activate py3 && pip install celery doit')
 
@@ -188,16 +165,12 @@ def install_emacs():
         sudo('make install')
     run('rm -rf emacs-25.1*')
 
+
 def install_spacemacs():
     # get spacemacs from github
     run('rm -rf .emacs.d')
     run('git clone https://github.com/syl20bnr/spacemacs .emacs.d')
 
-    # get my .spacemacs from github
-    run('rm -f .spacemacs')
-    run('rm -rf conf-spacemacs')
-    run('git clone https://github.com/commondatageek/spacemacs-customizations.git conf-spacemacs')
-    run('ln -s conf-spacemacs/.spacemacs')
 
 def install_vim():
     # install prereqs
@@ -226,15 +199,11 @@ def install_vim():
     run('mv mustang-vim/colors/mustang.vim ~/.vim/colors')
     run('rm -rf mustang-vim')
 
-    # get my .vimrc file from github
-    run('rm -f .vimrc')
-    run('rm -rf conf-vim')
-    run('git clone https://github.com/commondatageek/vimrc.git conf-vim')
-    run('ln -s conf-vim/.vimrc')
 
 def install_sqlite():
     sudo('apt-get -y install sqlite3')
     put('.bash_aliases', '/home/analyst')
+
 
 def install_neo4j():
     run('wget -O - https://debian.neo4j.org/neotechnology.gpg.key | sudo apt-key add -')
@@ -248,6 +217,28 @@ def install_vaulted():
     sudo('apt-get -y install golang')
     run('GOPATH=/home/analyst/gopath go get -u github.com/miquella/vaulted')
     run('ln ~/gopath/bin/vaulted ~/bin/vaulted')
+
+def setup_conf_files():
+    run('rm -rf setup-dev-environment')
+    run('git clone https://github.com/commondatageek/setup-dev-environment.git setup-dev-environment')
+
+    run('rm -rf .tmux.conf')
+    run('ln -s setup-dev-environment/config-files/tmux/.tmux.conf')
+
+    run('rm -rf .gitattributes')
+    run('ln -s setup-dev-environment/config-files/git/.gitattributes')
+
+    run('rm -rf .gitconfig')
+    run('ln -s setup-dev-environment/config-files/git/.gitconfig')
+
+    run('rm -f /home/analyst/bin/ipynb_output_filter.py')
+    run('ln -s setup-dev-environment/config-files/git/ipynb_output_filter.py /home/analyst/bin/ipynb_output_filter.py')
+
+    run('rm -f .spacemacs')
+    run('ln -s setup-dev-environment/config-files/emacs/.spacemacs')
+
+    run('rm -f .vimrc')
+    run('ln -s setup-dev-environment/config-files/vim/.vimrc')
 
 def setup_env():
     mount_storage()

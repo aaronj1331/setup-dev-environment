@@ -1,0 +1,27 @@
+[alias]
+	ci = commit
+	co = checkout
+	st = status
+	lg = log --graph
+	br = branch
+	dt = difftool
+	dty = difftool -y
+[user]
+	name = Aaron Johnson
+	email = aaronj@instructure.com
+[core]
+	autocrlf = input
+	editor = vim
+	attributesfile = /home/analyst/.gitattributes
+[filter "dropoutput_ipynb"]
+	clean = /home/analyst/bin/ipynb_output_filter.py
+	smudge = cat
+[color]
+	ui = true
+[diff]
+	tool = kdiff3
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
